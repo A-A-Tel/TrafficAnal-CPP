@@ -82,6 +82,7 @@ namespace traffic_anal {
 
             response = beast::buffers_to_string(res.body().cdata());
 
+            // Disconnect
             beast::error_code error;
             stream.socket().shutdown(tcp::socket::shutdown_both, error);
 
@@ -92,7 +93,7 @@ namespace traffic_anal {
         catch(std::exception const& e)
         {
             std::cerr << "Error: " << e.what() << std::endl;
-            return FlowSegmentData{};
+            return FlowSegmentData{}; // Fallback
         }
 
         return parseSegmentData(response);

@@ -11,7 +11,7 @@
 namespace json = boost::json;
 
 namespace traffic_anal {
-    struct coord {
+    struct Coord {
         double latitude;
         double longitude;
     };
@@ -25,18 +25,20 @@ namespace traffic_anal {
         float confidence{};
         bool roadClosure{};
         struct {
-            std::vector<coord> coordinate;
+            std::vector<Coord> coordinate;
         } coordinates;
     };
 
-    inline coord tag_invoke(json::value_to_tag<coord>, const json::value& jv) {
+    // Jsonify the coord struct
+    inline Coord tag_invoke(json::value_to_tag<Coord>, const json::value& jv) {
         const auto& obj = jv.as_object();
-        coord c{};
+        Coord c{};
         c.latitude = obj.at("latitude").as_double();
         c.longitude = obj.at("longitude").as_double();
         return c;
     }
 
+    // Jsonify the FlowSegmentData struct
     inline FlowSegmentData tag_invoke(json::value_to_tag<FlowSegmentData>, const json::value& jv) {
         const auto& obj = jv.as_object();
         FlowSegmentData d;
@@ -51,7 +53,7 @@ namespace traffic_anal {
 
         const auto& coordArray = obj.at("coordinates").as_object().at("coordinate").as_array();
         for (const auto& v : coordArray) {
-            d.coordinates.coordinate.push_back(json::value_to<coord>(v));
+            d.coordinates.coordinate.push_back(json::value_to<Coord>(v));
         }
 
         return d;
