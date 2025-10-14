@@ -53,7 +53,7 @@ namespace traffic_anal {
             // Ignore error, CLion bugged
             const std::string target = std::format(
                 "/traffic/services/4/flowSegmentData/absolute/10/json?key={}&point={},{}",
-                "XXX",
+                std::getenv("TOMTOM_TOKEN") ? std::getenv("TOMTOM_TOKEN") : "",
                 lat,
                 lon
             );
