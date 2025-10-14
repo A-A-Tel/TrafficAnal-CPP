@@ -7,4 +7,9 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/out/lib)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY  ${PROJECT_SOURCE_DIR}/out/bin)
 
 add_executable(main src/main.cpp
-        inc/traffic_anal/data_structs.hpp)
+        src/traffic_anal/RequestManager.cpp
+)
+
+find_package(Boost REQUIRED REQUIRED COMPONENTS json)
+
+target_link_libraries(main PRIVATE Boost::json)
