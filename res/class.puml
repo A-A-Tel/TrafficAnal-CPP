@@ -1,0 +1,22 @@
+@startuml
+class RequestManager {
+    +getSegmentData(lat : double, lon :  double) : FlowSegmentData
+
+    -parseSegmentData(json_str : string) : FlowSegmentData {static}
+}
+
+
+class FlowSegmentData <<struct>> {
+    +frc : string
+    +currentSpeed : uint
+    +freeFlowSpeed : uint
+    +currentTravelTime : uint
+    +freeFlowTravelTime : uint
+    +confidence : float
+    +roadClosure : bool
+    +coordinates : vector<Coord>
+}
+
+RequestManager --> FlowSegmentData
+
+@enduml

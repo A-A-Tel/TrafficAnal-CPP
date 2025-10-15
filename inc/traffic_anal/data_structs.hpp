@@ -11,10 +11,6 @@
 namespace json = boost::json;
 
 namespace traffic_anal {
-    struct Coord {
-        double latitude;
-        double longitude;
-    };
 
     struct FlowSegmentData {
         std::string frc;
@@ -24,19 +20,8 @@ namespace traffic_anal {
         unsigned int freeFlowTravelTime{};
         float confidence{};
         bool roadClosure{};
-        struct {
-            std::vector<Coord> coordinate;
-        } coordinates;
     };
 
-    // Jsonify the coord struct
-    inline Coord tag_invoke(json::value_to_tag<Coord>, const json::value& jv) {
-        const auto& obj = jv.as_object();
-        Coord c{};
-        c.latitude = obj.at("latitude").as_double();
-        c.longitude = obj.at("longitude").as_double();
-        return c;
-    }
 
     // Jsonify the FlowSegmentData struct
     inline FlowSegmentData tag_invoke(json::value_to_tag<FlowSegmentData>, const json::value& jv) {
@@ -50,11 +35,6 @@ namespace traffic_anal {
         d.freeFlowTravelTime = json::value_to<unsigned int>(obj.at("freeFlowTravelTime"));
         d.confidence = json::value_to<float>(obj.at("confidence"));
         d.roadClosure = json::value_to<bool>(obj.at("roadClosure"));
-
-        const auto& coordArray = obj.at("coordinates").as_object().at("coordinate").as_array();
-        for (const auto& v : coordArray) {
-            d.coordinates.coordinate.push_back(json::value_to<Coord>(v));
-        }
 
         return d;
     }
