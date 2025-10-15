@@ -1,12 +1,12 @@
 @startuml
-class RequestManager {
-    +getSegmentData(lat : double, lon :  double) : FlowSegmentData
+set separator ::
 
-    -parseSegmentData(json_str : string) : FlowSegmentData {static}
+class traffic_anal::requests <<namespace>> {
+    +FlowSegmentData getSegmentData(lat : double, lon : double)
+    +FlowSegmentData parseSegmentData(json_str : string)
 }
 
-
-class FlowSegmentData <<struct>> {
+class traffic_anal::FlowSegmentData <<struct>> {
     +frc : string
     +currentSpeed : uint
     +freeFlowSpeed : uint
@@ -16,7 +16,6 @@ class FlowSegmentData <<struct>> {
     +roadClosure : bool
     +coordinates : vector<Coord>
 }
-
-RequestManager --> FlowSegmentData
+traffic_anal::requests --> traffic_anal::FlowSegmentData
 
 @enduml
