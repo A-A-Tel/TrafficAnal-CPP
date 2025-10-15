@@ -1,5 +1,8 @@
 @startuml
+scale 750 width
 set separator ::
+
+namespace traffic_anal <<Rectangle>> {}
 
 class traffic_anal::requests <<namespace>> {
     +FlowSegmentData getSegmentData(lat : double, lon : double)
@@ -16,6 +19,7 @@ class traffic_anal::FlowSegmentData <<struct>> {
     +roadClosure : bool
     +coordinates : vector<Coord>
 }
+
 traffic_anal::requests --> traffic_anal::FlowSegmentData
 
 @enduml
