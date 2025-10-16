@@ -12,4 +12,8 @@ add_executable(main src/main.cpp
 
 find_package(Boost REQUIRED REQUIRED COMPONENTS json)
 
+find_package(date REQUIRED)
+
+target_link_libraries(main PRIVATE date-tz)
 target_link_libraries(main PRIVATE Boost::json)
+target_link_libraries(main PRIVATE ${CMAKE_SOURCE_DIR}/lib/liblogger.a)
