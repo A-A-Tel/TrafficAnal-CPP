@@ -5,20 +5,46 @@
 #ifndef TRAFFICANAL_CPP_DATA_STRUCTS_HPP
 #define TRAFFICANAL_CPP_DATA_STRUCTS_HPP
 #include <string>
-#include <vector>
 #include <boost/json/conversion.hpp>
 
 namespace json = boost::json;
 
 namespace traffic_anal {
 
+    /**
+     * Struct representation of a JSON response from TomTom.
+     */
     struct FlowSegmentData {
+
+        /**
+         * Road class
+         */
         std::string frc;
-        unsigned int currentSpeed{};
-        unsigned int freeFlowSpeed{};
-        unsigned int currentTravelTime{};
-        unsigned int freeFlowTravelTime{};
-        float confidence{};
+
+        /**
+         * Live flow speed
+         */
+        uint16_t currentSpeed{};
+
+        /**
+         * Test.
+         */
+        uint16_t freeFlowSpeed{};
+        /**
+         * Test.
+         */
+        uint16_t currentTravelTime{};
+        /**
+         * Test.
+         */
+        uint16_t freeFlowTravelTime{};
+        /**
+         * Test.
+         */
+        float_t confidence{};
+        /**
+         * Test.
+         */
         bool roadClosure{};
     };
 
@@ -26,17 +52,17 @@ namespace traffic_anal {
     // Jsonify the FlowSegmentData struct
     inline FlowSegmentData tag_invoke(json::value_to_tag<FlowSegmentData>, const json::value& jv) {
         const auto& obj = jv.as_object();
-        FlowSegmentData d;
+        FlowSegmentData data;
 
-        d.frc = json::value_to<std::string>(obj.at("frc"));
-        d.currentSpeed = json::value_to<unsigned int>(obj.at("currentSpeed"));
-        d.freeFlowSpeed = json::value_to<unsigned int>(obj.at("freeFlowSpeed"));
-        d.currentTravelTime = json::value_to<unsigned int>(obj.at("currentTravelTime"));
-        d.freeFlowTravelTime = json::value_to<unsigned int>(obj.at("freeFlowTravelTime"));
-        d.confidence = json::value_to<float>(obj.at("confidence"));
-        d.roadClosure = json::value_to<bool>(obj.at("roadClosure"));
+        data.frc = json::value_to<std::string>(obj.at("frc"));
+        data.currentSpeed = json::value_to<uint16_t>(obj.at("currentSpeed"));
+        data.freeFlowSpeed = json::value_to<uint16_t>(obj.at("freeFlowSpeed"));
+        data.currentTravelTime = json::value_to<uint16_t>(obj.at("currentTravelTime"));
+        data.freeFlowTravelTime = json::value_to<uint16_t>(obj.at("freeFlowTravelTime"));
+        data.confidence = json::value_to<float_t>(obj.at("confidence"));
+        data.roadClosure = json::value_to<bool>(obj.at("roadClosure"));
 
-        return d;
+        return data;
     }
 }
 

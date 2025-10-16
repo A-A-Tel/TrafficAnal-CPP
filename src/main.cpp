@@ -1,12 +1,14 @@
+/**
+@plantumlfile{doc/class.puml}
+*/
 #include <boost/algorithm/string.hpp>
 
 #include <iostream>
 #include <regex>
 
-#include <traffic_anal/requests.hpp>
+#include <traffic_anal/Requests.hpp>
 
-namespace req = traffic_anal::requests;
-
+namespace anal = traffic_anal;
 
 /**
  * This funciton parses out 2 coordinates from a string using <code>(\-?\d+)(\.\d+)?</code>.
@@ -36,8 +38,10 @@ int main()
     std::vector<double> coords;
     filter_coords_input(input, coords);
 
-    const std::string json = req::getSegmentData(coords[0], coords[1]);
-    const traffic_anal::FlowSegmentData data = req::parseSegmentData(json);
+    // const std::string json = anal::Requests::getSegmentData(coords[0], coords[1]);
+    const traffic_anal::FlowSegmentData data = anal::Requests::parseSegmentData("json");
+
+    std::cout << data.currentSpeed << std::endl;
 
     return 0;
 }
