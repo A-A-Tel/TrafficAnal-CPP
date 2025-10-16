@@ -23,6 +23,16 @@ using tcp = net::ip::tcp;
 
 namespace traffic_anal::requests {
 
+    /**
+     * This function makes a request to
+     * [TomTom](https://api.tomtom.com/traffic/services/4/flowSegmentData/absolute/10/json)
+     * using both the function parameters and the TomTom API key from the environment.
+     *
+     * @param lat The latitude coordinate of the road.
+     * @param lon The longitude coordinate of the road.
+     * @return The JSON data returned from the TomTom API.
+     */
+
     std::string getSegmentData(double lat, double lon) {
 
         std::string response;
@@ -79,6 +89,14 @@ namespace traffic_anal::requests {
         return response;
     }
 
+    /**
+     * This function returns a filled struct with the data from the JSON
+     * or an empty struct when the JSON is invalid.
+     *
+     * @param json_str A JSON string returned from @link traffic_anal::requests::getSegmentData getSegmentData()@endlink.
+     * @see traffic_anal::requests::getSegmentData
+     * @return traffic_anal::FlowSegmentData A valid data struct to work with.
+     */
     FlowSegmentData parseSegmentData(const std::string &json_str) {
 
         // Test data

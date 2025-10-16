@@ -30,17 +30,14 @@ void filter_coords_input(const std::string& input, std::vector<double>& output) 
 int main()
 {
     std::string input;
-    std::cout <<  "Please enter coordinates: ";
+    std::cout <<  "Please enter coordinates (lat,lon): ";
     std::getline(std::cin, input);
 
     std::vector<double> coords;
     filter_coords_input(input, coords);
 
-
-
-
-
-
+    const std::string json = req::getSegmentData(coords[0], coords[1]);
+    const traffic_anal::FlowSegmentData data = req::parseSegmentData(json);
 
     return 0;
 }
