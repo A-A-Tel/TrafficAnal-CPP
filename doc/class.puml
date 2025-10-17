@@ -48,6 +48,7 @@ namespace traffic_anal <<Rectangle>> {
 }
 
 traffic_anal::Requests --> traffic_anal::FlowSegmentData
+traffic_anal::Requests - traffic_anal::Status
 traffic_anal::Analyser --> traffic_anal::AnalyseStrategy
 
 @enduml
