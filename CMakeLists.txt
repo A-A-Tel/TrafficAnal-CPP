@@ -8,6 +8,7 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/out/bin)
 
 add_executable(main src/main.cpp
         src/traffic_anal/Requests.cpp
+        src/traffic_anal/Analyser.cpp
 )
 
 find_package(Boost REQUIRED REQUIRED COMPONENTS json)
