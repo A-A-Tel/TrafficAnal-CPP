@@ -1,12 +1,10 @@
-/**
-@plantumlfile{doc/class.puml}
-*/
 #include <boost/algorithm/string.hpp>
 
 #include <iostream>
 #include <regex>
 
 #include <traffic_anal/Requests.hpp>
+
 
 namespace anal = traffic_anal;
 

@@ -2,10 +2,6 @@
 #define TRAFFICANAL_CPP_REQUEST_HPP
 #include "data_structs.hpp"
 
-
-const static std::string host = "api.tomtom.com";
-const static std::string port = "80";
-
 namespace traffic_anal {
 
     class Requests {
@@ -14,8 +10,11 @@ namespace traffic_anal {
 
             static FlowSegmentData parse_segment_data(std::string json_str);
 
-        Requests() = delete;
-        virtual ~Requests();
+            Requests() = delete;
+            ~Requests() = delete;
+        private:
+            static const std::string host;
+            static const std::string port;
     };
 } //trafic_anal
 

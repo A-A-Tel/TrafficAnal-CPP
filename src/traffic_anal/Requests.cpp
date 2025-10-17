@@ -19,9 +19,13 @@ namespace beast = boost::beast;
 namespace http = beast::http;
 namespace net = boost::asio;
 namespace json = boost::json;
+
 using tcp = net::ip::tcp;
 
 namespace traffic_anal {
+
+    const std::string Requests::host = "api.tomtom.com";
+    const std::string Requests::port = "80";
 
     /**
      * This function makes a request to
@@ -30,6 +34,7 @@ namespace traffic_anal {
      *
      * @param lat The latitude coordinate of the road.
      * @param lon The longitude coordinate of the road.
+     * @see traffic_anal::Requests::parse_segment_data.
      * @return The JSON data returned from the TomTom API.
      */
     std::string Requests::get_segment_data(double lat, double lon) {
@@ -41,7 +46,7 @@ namespace traffic_anal {
             // Ignore error, CLion bugged
             const std::string target = std::format(
                 "/traffic/services/4/flowSegmentData/absolute/10/json?key={}&point={},{}",
-                std::getenv("TOMTOM_TOKEN") ? std::getenv("TOMTOM_TOKEN") : "",
+                std::getenv("TOMTOM_TOKEN") ? std::getenv("TOMTOM_TOKEN") : "xxxxxxxTOKEN_HERExxxxxxx",
                 lat,
                 lon
             );
@@ -92,8 +97,8 @@ namespace traffic_anal {
      * This function returns a filled struct with the data from the JSON
      * or an empty struct when the JSON is invalid.
      *
-     * @param json_str A JSON string returned from @link traffic_anal::requests::getSegmentData getSegmentData()@endlink.
-     * @see traffic_anal::requests::getSegmentData
+     * @param json_str A JSON string returned from @ref traffic_anal::Requests::get_segment_data.
+     * @see traffic_anal::requests::get_segment_data
      * @return traffic_anal::FlowSegmentData A valid data struct to work with.
      */
     FlowSegmentData Requests::parse_segment_data(std::string json_str) {
