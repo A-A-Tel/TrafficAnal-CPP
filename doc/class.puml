@@ -4,23 +4,22 @@ set separator ::
 
 namespace traffic_anal <<Rectangle>> {
 
-    class Requests <<namespace>> {
-        +FlowSegmentData getSegmentData(lat : double, lon : double)
-        +FlowSegmentData parseSegmentData(json_str : string)
-    }
+	class Requests {
+		+string get_segment_data(lat : double, lon : double)
+		+FlowSegmentData parse_segment_data(json_str : string)
+	}
 
-    class FlowSegmentData <<struct>> {
-        +frc : string
-        +currentSpeed : uint
-        +freeFlowSpeed : uint
-        +currentTravelTime : uint
-        +freeFlowTravelTime : uint
-        +confidence : float
-        +roadClosure : bool
-        +coordinates : vector<Coord>
-    }
+	class FlowSegmentData <<struct>> {
+		+frc : string
+		+currentSpeed : uint
+		+freeFlowSpeed : uint
+		+currentTravelTime : uint
+		+freeFlowTravelTime : uint
+		+confidence : float
+		+roadClosure : bool
+	}
 }
 
-traffic_anal::requests --> traffic_anal::FlowSegmentData
+traffic_anal::Requests --> traffic_anal::FlowSegmentData
 
 @enduml

@@ -32,7 +32,7 @@ namespace traffic_anal {
      * @param lon The longitude coordinate of the road.
      * @return The JSON data returned from the TomTom API.
      */
-    std::string Requests::getSegmentData(double lat, double lon) {
+    std::string Requests::get_segment_data(double lat, double lon) {
 
         std::string response;
 
@@ -96,7 +96,7 @@ namespace traffic_anal {
      * @see traffic_anal::requests::getSegmentData
      * @return traffic_anal::FlowSegmentData A valid data struct to work with.
      */
-    FlowSegmentData Requests::parseSegmentData(std::string json_str) {
+    FlowSegmentData Requests::parse_segment_data(std::string json_str) {
 
         // Test data
         json_str = R"({"flowSegmentData":{"frc":"FRC1","currentSpeed":25,"freeFlowSpeed":25,"currentTravelTime":59,"freeFlowTravelTime":59,"confidence":1,"roadClosure":false,"coordinates":{"coordinate":[{"latitude":51.842671952025697,"longitude":5.866043378102120},{"latitude":51.842611622086366,"longitude":5.865791250454691},{"latitude":51.842564652712788,"longitude":5.865612883555173},{"latitude":51.842331306895552,"longitude":5.864658017145615},{"latitude":51.842174395912245,"longitude":5.863948572861034},{"latitude":51.842073827595044,"longitude":5.863240469680932},{"latitude":51.842038975597490,"longitude":5.862905193553985},{"latitude":51.842004071786867,"longitude":5.862301696525464},{"latitude":51.841994698503697,"longitude":5.862083096490721},{"latitude":51.841990659187758,"longitude":5.861971784816575},{"latitude":51.841998737819374,"longitude":5.861462165103603},{"latitude":51.842017484381984,"longitude":5.861065198169342},{"latitude":51.842038975597490,"longitude":5.860847939239079},{"latitude":51.842060415016697,"longitude":5.860666890130545},{"latitude":51.842104692045829,"longitude":5.860433537946165},{"latitude":51.842160983363840,"longitude":5.860193480239303}]},"@version":"4"}})";

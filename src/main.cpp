@@ -39,7 +39,7 @@ int main()
     filter_coords_input(input, coords);
 
     // const std::string json = anal::Requests::getSegmentData(coords[0], coords[1]);
-    const traffic_anal::FlowSegmentData data = anal::Requests::parseSegmentData("json");
+    const traffic_anal::FlowSegmentData data = anal::Requests::parse_segment_data("json");
 
     std::cout << data.currentSpeed << std::endl;
 

@@ -12,38 +12,54 @@ namespace json = boost::json;
 namespace traffic_anal {
 
     /**
-     * Struct representation of a JSON response from TomTom.
+     * JSON representation from TomTom's API response.
      */
     struct FlowSegmentData {
 
         /**
-         * Road class
+         * Functional Road Class. This indicates the road type:
+         * - FRC0 : Freeway, freeway or other major road.
+         * - FRC1 : Major road, less important than a freeway.
+         * - FRC2 : Other major road.
+         * - FRC3 : Secondary road.
+         * - FRC4 : Local connecting road.
+         * - FRC5 : Local road of high importance.
+         * - FRC6 : Local road
          */
         std::string frc;
 
         /**
-         * Live flow speed
+         * The current average speed at the selected point, in the unit requested.
+         * This is calculated from the currentTravelTime and the length of the selected segment.
          */
         uint16_t currentSpeed{};
 
         /**
-         * Test.
+         * The free flow speed expected under ideal conditions, expressed in the unit requested.
+         * This is related to the freeFlowTravelTime.
          */
         uint16_t freeFlowSpeed{};
+
         /**
-         * Test.
+         * Current travel time in seconds based on fused real-time measurements between the defined locations in the specified direction.
          */
         uint16_t currentTravelTime{};
+
         /**
-         * Test.
+         * The travel time in seconds which would be expected under ideal free flow conditions.
          */
         uint16_t freeFlowTravelTime{};
+
         /**
-         * Test.
+         * The confidence is a measure of the quality of the provided travel time and speed.
+         * A value ranges between 0 and 1.0 where 1.0 means full confidence,
+         * meaning that the response contains the highest quality data.
+         * Lower values indicate the degree that the response may vary from the actual conditions on the road.
          */
         float_t confidence{};
+
         /**
-         * Test.
+         * This indicates if the road is closed to traffic or not.
          */
         bool roadClosure{};
     };

@@ -10,9 +10,9 @@ namespace traffic_anal {
 
     class Requests {
         public:
-            static std::string getSegmentData(double lat, double lon);
+            static std::string get_segment_data(double lat, double lon);
 
-            static FlowSegmentData parseSegmentData(std::string json_str);
+            static FlowSegmentData parse_segment_data(std::string json_str);
 
         Requests() = delete;
         virtual ~Requests();
