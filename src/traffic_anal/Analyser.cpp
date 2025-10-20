@@ -2,9 +2,13 @@
 
 namespace traffic_anal {
 
-    FlowSegmentData Analyser::get_analysed_data() const {
-        return strat->analyse(lat, lon);
-    }
+    Analyser::Analyser(const double lat, const double lon) : lon(lon), lat(lat) {}
 
-    Analyser::Analyser(const double lat, const double lon, const AnalyseStrategy* strat) : lon(lon), lat(lat), strat(strat) {}
+    FlowSegmentData Analyser::analyse(
+        std::chrono::time_point<std::chrono::utc_clock> start,
+        std::chrono::time_point<std::chrono::utc_clock> end
+        ) const {
+
+        return {};
+    }
 }

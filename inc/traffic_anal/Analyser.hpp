@@ -1,20 +1,20 @@
 #ifndef TRAFFIC_ANAL_ANALYSER_HPP
 #define TRAFFIC_ANAL_ANALYSER_HPP
 
+#include <chrono>
 #include <traffic_anal/data_structs.hpp>
-#include <traffic_anal/AnalyseStrategy.hpp>
 
 namespace traffic_anal {
     class Analyser {
         public:
-            [[nodiscard]] FlowSegmentData get_analysed_data() const;
+        Analyser(double lat, double lon);
+        virtual ~Analyser() = default;
 
-            Analyser(double lat, double lon, const AnalyseStrategy* strat);
+        [[nodiscard]] virtual FlowSegmentData analyse(std::chrono::time_point<std::chrono::utc_clock> start, std::chrono::time_point<std::chrono::utc_clock> end) const;
 
-        private:
+    private:
             const double lon;
             const double lat;
-            const AnalyseStrategy *strat;
     };
 }
 

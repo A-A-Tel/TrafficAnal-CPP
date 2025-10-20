@@ -26,29 +26,17 @@ namespace traffic_anal <<Rectangle>> {
 		+roadClosure : bool
 	}
 
-	class AnalyseStrategy {
-		+analyse(lat : double, lon : double) : FlowSegmentData
-	}
+	abstract class Analyser {
+		+analyse() : FlowSegmentData
 
-	class Analyser {
-		+get_data() : FlowSegmentData
-
-		+Analyser(lat : double, lon : double, strat : AnalyseStrategy)
+		+Analyser(lat : double, lon : double)
 
 		-lon : double
 		-lat : double
-		-strat : AnalyseStrategy
-	}
-
-	class TimePeriodData {
-		+start_time : std::chrono::time_point {property}
-		+end_time : std::chrono::time_point {property}
-		+data : FlowSegmentData {property}
 	}
 }
 
 traffic_anal::Requests --> traffic_anal::FlowSegmentData
 traffic_anal::Requests - traffic_anal::Status
-traffic_anal::Analyser --> traffic_anal::AnalyseStrategy
 
 @enduml
