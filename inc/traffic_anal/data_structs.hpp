@@ -12,40 +12,35 @@ namespace json = boost::json;
 
 
 /**
- * The main namespace for the project.
+ * The namespace for the project.
  */
 namespace traffic_anal {
 
     /**
-     * Enum indicating if parsing was successful.
+     * A datetime object for other data.
      */
-    enum struct Status {
+    struct Datetime {
 
         /**
-         * Parsing was successful and the struct is guaranteed to be valid.
+         * The date string in the format dd/mm/yy.
          */
-        VALID,
+        std::string date{};
 
         /**
-         * Parsing failed entirely.
+         * The time string in the format HH:MM:SS.
          */
-        INVALID,
+        std::string time{};
 
         /**
-         * Parsing (partially) failed. struct may contain some data.
+         * The time since epoch in a float, with everything smaller than a second behind the decimal.
          */
-        UNKNOWN
+        double_t epoch{};
     };
 
     /**
      * JSON representation from TomTom's API response.
      */
     struct FlowSegmentData {
-
-        /**
-         * Indication for if the parsing was successful. May contain partial data when @ref traffic_anal::Status::UNKNOWN
-         */
-        Status status{Status::UNKNOWN};
 
         /**
          * Functional Road Class. This indicates the road type:
@@ -93,6 +88,13 @@ namespace traffic_anal {
          * This indicates if the road is closed to traffic or not.
          */
         bool roadClosure{};
+
+        /**
+         * The datetime information associated with the data.
+         */
+        Datetime datetime{};
+
+
     };
 
     // Jsonify the FlowSegmentData struct
@@ -108,11 +110,19 @@ namespace traffic_anal {
             data.freeFlowTravelTime = json::value_to<uint16_t>(obj.at("freeFlowTravelTime"));
             data.confidence = json::value_to<float_t>(obj.at("confidence"));
             data.roadClosure = json::value_to<bool>(obj.at("roadClosure"));
+
+            const json::value& datetime = obj.at("datetime");
+
+            data.datetime = {
+                json::value_to<std::string>(datetime.at("date")),
+                json::value_to<std::string>(datetime.at("time")),
+                json::value_to<double_t>(datetime.at("epoch")),
+            };
+
         } catch (const std::exception& e) {
             std::cerr << e.what() << std::endl;
             return data;
         }
-        data.status = Status::VALID;
         return data;
     }
 }

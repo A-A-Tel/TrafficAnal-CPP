@@ -7,14 +7,17 @@
 namespace traffic_anal {
     class Analyser {
         public:
-        Analyser(double lat, double lon);
         virtual ~Analyser() = default;
 
-        [[nodiscard]] virtual FlowSegmentData analyse(std::chrono::time_point<std::chrono::utc_clock> start, std::chrono::time_point<std::chrono::utc_clock> end) const;
+        virtual FlowSegmentData analyse(
+            std::chrono::time_point<std::chrono::utc_clock> start,
+            std::chrono::time_point<std::chrono::utc_clock> end,
+            std::string dataset)
+        const;
 
-    private:
-            const double lon;
-            const double lat;
+    protected:
+
+        Analyser() = default;
     };
 }
 

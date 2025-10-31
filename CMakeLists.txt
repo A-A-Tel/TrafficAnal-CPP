@@ -7,7 +7,6 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/out/lib)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/out/bin)
 
 add_executable(main src/main.cpp
-        src/traffic_anal/Requests.cpp
         src/traffic_anal/Analyser.cpp
 )
 
@@ -17,4 +16,4 @@ find_package(date REQUIRED)
 
 target_link_libraries(main PRIVATE date-tz)
 target_link_libraries(main PRIVATE Boost::json)
-target_link_libraries(main PRIVATE ${CMAKE_SOURCE_DIR}/lib/liblogger.a)
+target_link_libraries(main PRIVATE ${PROJECT_SOURCE_DIR}/lib/liblogger.a)

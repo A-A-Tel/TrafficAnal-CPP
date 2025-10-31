@@ -4,19 +4,12 @@ set separator ::
 
 namespace traffic_anal <<Rectangle>> {
 
-	enum Status {
-		VALID
-		INVALID
-		UNKNOWN
-	}
-
 	class Requests {
 		+string get_segment_data(lat : double, lon : double)
 		+FlowSegmentData parse_segment_data(json_str : string)
 	}
 
 	class FlowSegmentData <<struct>> {
-		+status : traffic_anal::status
 		+frc : string
 		+currentSpeed : uint
 		+freeFlowSpeed : uint
@@ -24,6 +17,7 @@ namespace traffic_anal <<Rectangle>> {
 		+freeFlowTravelTime : uint
 		+confidence : float
 		+roadClosure : bool
+		+datetime : { date : string, time: string, millis: double }
 	}
 
 	abstract class Analyser {
