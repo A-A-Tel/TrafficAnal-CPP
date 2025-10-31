@@ -2,11 +2,12 @@
 scale 750 width
 set separator ::
 
-namespace traffic_anal <<Rectangle>> {
+namespace traffic_anal {
 
-	class Requests {
-		+string get_segment_data(lat : double, lon : double)
-		+FlowSegmentData parse_segment_data(json_str : string)
+	class Datetime <<struct>> {
+		+date : string
+		+time : string
+		+millis : double
 	}
 
 	class FlowSegmentData <<struct>> {
@@ -17,20 +18,35 @@ namespace traffic_anal <<Rectangle>> {
 		+freeFlowTravelTime : uint
 		+confidence : float
 		+roadClosure : bool
-		+datetime : { date : string, time: string, millis: double }
+		+datetime : Datetime
+	}
+
+	class Dataset {
+		-path : string
+		-prefix : string
+		-suffix : string
+		-data : vector<FlowSegmentData>
+
+		+Dataset(path string, prefix string, suffix string)
+
+		+getData() : vector<FlowSegmentData>
+		+getDataJson() : vector<json::value>
+		+gatherData() : void
 	}
 
 	abstract class Analyser {
-		+analyse() : FlowSegmentData
+		-start : timepoint
+		-end : timepoint
+		-dataset : Dataset
 
-		+Analyser(lat : double, lon : double)
+		+analyse(start : timepoint, end : timepoint, dataset : Dataset) : FlowSegmentData {abstract}
 
-		-lon : double
-		-lat : double
+		#Analyser()
 	}
 }
 
-traffic_anal::Requests --> traffic_anal::FlowSegmentData
-traffic_anal::Requests - traffic_anal::Status
+traffic_anal::Analyser <-- traffic_anal::FlowSegmentData
+traffic_anal::Analyser <-- traffic_anal::Dataset
+traffic_anal::FlowSegmentData <- traffic_anal::Datetime
 
 @enduml
